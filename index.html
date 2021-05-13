@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    //window.nodeRequire = require;
+  </script>
+  <link rel="stylesheet" href="./src/styles/index.css"/>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compact ledger</title>
+</head>
+<body>
+  <div id='content' class="form">
+    <img src="./src/static/img/logo.png" alt="logo" class="logo"/>
+    <div class="field-row">
+      <input id="userName" type="text" placeholder="Enter your name"/>
+    </div>
+    <div class="action-bar">
+      <button id='login'>Login</button>
+    </div>
+  </div>
+
+  <div id='home' class="hide">
+    <div class="home-wrapper">
+      <div id='transactionList' class="transaction-list expanded">
+        <div id='tableContainer'></div>
+        <button id="newTransaction">Add transaction</button>
+      </div>
+      <div id="transactionDetails" class="hide transaction-details form">
+        <h3>Create transaction</h3>
+        <div class="inline field-row">
+          <label class="label">Type</label>
+          <div class="field">
+            <input type="radio" name="entryType" value="receivable" />
+            <label for="receivable">Receivable</label>
+            <input type="radio" name="entryType" value="payable" />
+            <label for="payable">Payable</label>
+          </div>
+        </div>
+        <!-- TODO: add date time picker -->
+        <div class="field-row">
+          <label for="dateTime" class="label">Date</label>
+          <input class="field" type="datetime-local" name="dateTime" id="dateTime">
+        </div>
+        <div class="field-row">
+          <label for="amount" class="label">Amount</label>
+          <input class="field" type="text" id="amount" name="amount">
+        </div>
+        <div class="action-bar">
+          <ul>
+            <li>
+              <button id="cancelSave">Cancel</button>
+            </li>
+            <li class="right-align">
+              <button id="saveTransaction" class="">Save</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <i class="footer">
+    Developed using Node.js <span id="node-version"></span>,
+    Chromium <span id="chrome-version"></span>,
+    and Electron <span id="electron-version"></span>.
+  </i>
+  <script src="./renderer.js"></script>
+</body>
+</html>

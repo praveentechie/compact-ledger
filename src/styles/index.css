@@ -1,0 +1,113 @@
+* {
+  box-sizing: border-box;
+}
+
+input {
+  padding: 5px 7px;
+}
+
+input[type='text'] {
+  width: 100%;
+}
+
+button {
+  padding: 5px;
+}
+
+table {
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+
+th, td {
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  padding: 7px 5px;
+}
+
+.hide {
+  display: none;
+}
+
+#content {
+  border: 1px solid #ccc;
+  margin: 0 auto;
+  margin-top: 5rem;
+  min-height: 350px;
+  padding: 10px 25px;
+  width: 40%;
+  text-align: center;
+}
+
+#content .action-bar {
+  text-align: right;
+}
+
+.logo {
+  height: 225px;
+  width: 250px;
+}
+
+.home-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  min-height: 300px;
+}
+
+.home-wrapper .transaction-list {
+  border-right: 2px solid black;
+  padding: 15px;
+  transition: all 0.4s ease;
+  width: 50%;
+}
+
+.home-wrapper .transaction-list.expanded {
+  border-right: none;
+  width: 100%;
+}
+
+.home-wrapper .transaction-details {
+  padding: 15px;
+  width: 35%;
+}
+
+.form .field-row {
+  padding: 8px 0;
+}
+
+.form .label {
+  display: inline-block;
+  padding: 0 7px;
+  width: 25%;
+}
+
+.form .field {
+  display: inline-block;
+  padding: 0 7px;
+  width: 60%;
+}
+
+.form input.field {
+  padding: 5px 7px;
+}
+
+.form .inline {
+  display: flex;
+  align-items: baseline;
+}
+
+.action-bar ul {
+  border-top: 2px solid #ddd;
+  display: flex;
+  list-style: none;
+  padding: 7px;
+}
+
+.action-bar .right-align {
+  margin-left: auto;
+}
+
+.footer {
+  position: fixed;
+  bottom: 10px;
+}
