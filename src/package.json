@@ -1,0 +1,13 @@
+{
+  "name": "compact-ledger",
+  "productName": "compact-ledger",
+  "version": "1.0.0",
+  "description": "A light weight ledger that can handle day-to-day activities.",
+  "main": "./main.prod.js",
+  "scripts": {
+    "electron-rebuild": "node -r ../.erb/scripts/BabelRegister.js ../.erb/scripts/ElectronRebuild.js",
+    "postinstall": "npm run electron-rebuild"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}

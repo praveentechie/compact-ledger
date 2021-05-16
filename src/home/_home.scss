@@ -1,0 +1,26 @@
+.homePage {
+  display: block;
+
+  .homeWrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    min-height: 300px;
+  
+    .transactionList {
+      border-right: 2px solid black;
+      padding: 15px;
+      transition: all 0.4s ease;
+      width: 50%;
+    }
+  
+    .expanded {
+      border-right: none;
+      width: 100%;
+    }
+  
+    .transactionDetails {
+      padding: 15px;
+      width: 35%;
+    }
+  }  
+}
