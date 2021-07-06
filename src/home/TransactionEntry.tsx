@@ -1,5 +1,5 @@
 import React from 'react';
-import Transaction from '../modal/Transaction';
+import Transaction from '../domain/Transaction';
 
 // ### typescript: setting type for rest/spread operator
 const TransactionEntry = ({transaction}: {transaction: Transaction}) => {

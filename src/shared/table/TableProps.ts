@@ -6,5 +6,7 @@ export interface TableHeader {
 export interface TableProps {
   // ### typescript: array type declaration, alternate way
   headers: TableHeader[],
-  data: Array<any>
+  data: Array<any>,
+  aggregateBy?: string,
+  formatKey?: Function
 }

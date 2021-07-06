@@ -1,6 +1,6 @@
 const { v4: uuid4 } = require('uuid');
 import ElectronDomainBase from './ElectronDomainBase';
-import { initDatabase, initCollection, insertDocument, readFile } from '../systemUtils';
+import { initDatabase, initCollection, insertDocument, readCollection } from '../systemUtils';
 import { optionalString } from '../types/types';
 
 initDatabase();
@@ -27,8 +27,9 @@ class Database<T extends ElectronDomainBase> {
   getAll(): Promise<Array<T>> {
     return new Promise((resolve, reject) => {
       try {
-        let collection = readFile(this.collection);
+        let collection = readCollection(this.collection);
         if (collection && collection.data) {
+          // ### ts: type casting with generic
           resolve(collection.data.map(entry => entry as T));
         }
         resolve([]);

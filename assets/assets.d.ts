@@ -14,6 +14,6 @@ declare module '*.jpg' {
 }
 
 declare module '*.scss' {
-  const content: Map<String, String>;
+  const content: Record<string, string>;
   export default content;
 }

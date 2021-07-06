@@ -1,9 +1,23 @@
 @import "~bootstrap/scss/bootstrap";
+@import "./font-awesome/css/font-awesome.min.css";
+@import "./app.scss";
+
+body {
+  color: $font-default;
+
+  .navbar {
+    background: linear-gradient(to left, $bg-nav-a, $bg-nav-b) !important;
+  }
+  
+  .page-container {
+    margin-top: 15px;
+  }
+}
 
 #root {
-  width: 100%;
   min-height: 100vh;
   overflow-y: auto;
+  width: 100%;
 }
 
 li {
@@ -11,13 +25,24 @@ li {
 }
 
 a {
-  text-decoration: none;
   height: fit-content;
+  text-decoration: none;
   width: fit-content;
-  margin: 10px;
 
   &:hover {
     opacity: 1;
     text-decoration: none;
+  }
+}
+
+.row-margin {
+  margin-bottom: 15px;
+}
+
+.action-bar {
+  display: flex;
+
+  .right-align {
+    margin-left: auto;
   }
 }

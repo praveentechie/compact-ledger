@@ -1,8 +1,9 @@
 declare namespace HomeScssNamespace {
   export interface IHomeScss {
-    expanded: string;
+    formRow: string;
     homePage: string;
     homeWrapper: string;
+    modalForm: string;
     transactionDetails: string;
     transactionList: string;
   }

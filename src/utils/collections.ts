@@ -1,4 +1,4 @@
 import Database from "./database/ElectronDatabase";
-import Transaction from '../modal/Transaction';
+import Transaction from '../domain/Transaction';
 
 export const transactionCollection = new Database<Transaction>('transactions');

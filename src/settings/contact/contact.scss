@@ -1,0 +1,18 @@
+.contact {
+  min-height: 70vh;
+
+  .contactContainer {
+    .contactList {
+      border-right: 1px solid;
+
+      .contactItem {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    .contactForm {
+      margin-top: 2rem;
+    }
+  }
+}

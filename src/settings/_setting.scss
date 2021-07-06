@@ -1,0 +1,36 @@
+@import '../styles/app.scss';
+
+.settings {
+  .settingItem {
+    margin-bottom: 30px;
+
+    &.iconDisabled {
+      .itemContainer {
+        cursor: not-allowed;
+        opacity: .5;
+      }
+    }
+
+    .itemContainer {
+      align-items: center;
+      border: 1px solid #ddd;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 150px;
+
+      span {
+        display: inline-block;
+      }
+
+      .iconContainer {
+        background-color: $bg-setting-icon;
+        border-radius: 50%;
+        border: 1px solid;
+        color: $font-inverse;
+        padding: 15px;
+      }
+    }
+  }
+}

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
-import { transactionCollection } from '../utils/collections';
-import Transaction from '../modal/Transaction';
-import homeScss from './_home.scss';
-import TransactionList from './TransactionList';
+import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import moment from 'moment';
 
-const defaultTransaction = new Transaction('payable', new Date().toISOString(), 0);
+import { transactionCollection } from '../utils/collections';
+import Transaction from '../domain/Transaction';
+import TransactionList from './TransactionList';
+import { FORMATS } from '../utils/constants';
+
+import homeScss from './_home.scss';
+import { formatToTimeZone } from '../utils/dateUtils';
+
+const defaultTransaction = new Transaction('payable', moment().format(FORMATS.LONG_DATE_TIME));
 
 const HomePage = () => {
   let [ transactionList, setTransactionList ] = useState<Array<Transaction>>([]);
@@ -32,13 +37,14 @@ const HomePage = () => {
 
   const updateForm = (event: React.ChangeEvent<HTMLInputElement>) => {
     let updatedForm = {
-      ...transactionForm,
+      ...Object.assign(transactionForm),
       [event.target.name]: event.target.value
-    };
+    }
     setTransactionForm(updatedForm);
   };
 
   const saveTransaction = async () => {
+    transactionForm.dateTime = formatToTimeZone(transactionForm.dateTime, FORMATS.LONG_DATE_TIME_UTC);
     await transactionCollection.insert(transactionForm);
     toggleAddTransaction();
     getTransactions();
@@ -47,62 +53,102 @@ const HomePage = () => {
   console.log('transactionList', transactionList);
 
   return (
-    <div id='home' className={homeScss.homePage}>
-      <div className={homeScss.homeWrapper}>
-        <div className={`${homeScss.transactionList} ${homeScss.expanded}`}>
+    <div id='home' className={`${homeScss.homePage}`}>
+      <div className={`row ${homeScss.homeWrapper}`}>
+        <div className={`col-12 ${homeScss.transactionList}`}>
           <TransactionList transactions={transactionList} />
           <Button variant="primary" onClick={toggleAddTransaction}>Add transaction</Button>
         </div>
-        {
-          addTransaction &&
-          <div className={`${homeScss.transactionDetails} form`}>
-            <h3>Create transaction</h3>
-            <div className='inline field-row'>
-              <label className='label'>Type</label>
-              <div className='field'>
-                <Form.Check inline
-                  label='Receivable'
-                  name='entryType'
-                  type='radio'
-                  value='receivable'
-                  checked={transactionForm.entryType === 'receivable'}
-                  onChange={updateForm}
-                />
-                <Form.Check inline
-                  label='Payable'
-                  name='entryType'
-                  type='radio'
-                  value='payable'
-                  checked={transactionForm.entryType === 'payable'}
-                  onChange={updateForm}
-                />
-              </div>
+        <Modal centered
+          size='lg'
+          backdrop='static'
+          keyboard={false}
+          className={homeScss.modalForm}
+          show={addTransaction}
+          onHide={toggleAddTransaction}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Create transaction</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form className={`${homeScss.transactionDetails} form col-12 p-0`}>
+              <Form.Group as={Row} className={homeScss.formRow}>
+                <Form.Label column sm={3}>Type</Form.Label>
+                <Col sm={9}>
+                  <Form.Check inline
+                    label='Receivable'
+                    name='entryType'
+                    type='radio'
+                    value='receivable'
+                    checked={transactionForm.entryType === 'receivable'}
+                    onChange={updateForm}
+                  />
+                  <Form.Check inline
+                    label='Payable'
+                    name='entryType'
+                    type='radio'
+                    value='payable'
+                    checked={transactionForm.entryType === 'payable'}
+                    onChange={updateForm}
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} className={homeScss.formRow}>
+                <Form.Label column sm={3}>Date</Form.Label>
+                <Col sm={9}>
+                  <Form.Control type='datetime-local'
+                    name='dateTime'
+                    value={transactionForm.dateTime}
+                    onChange={updateForm}
+                    step={60}
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} className={homeScss.formRow}>
+                <Form.Label column sm={3}>Amount</Form.Label>
+                <Col sm={9}>
+                  <Form.Control type='number' name='amount'
+                    value={transactionForm.amount}
+                    onChange={updateForm}
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} className={homeScss.formRow}>
+                <Form.Label column sm={3}>Account</Form.Label>
+                <Col sm={9}>
+                  <Form.Control type='text' name='account'
+                    value={transactionForm.account}
+                    onChange={updateForm}
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} className={homeScss.formRow}>
+                <Form.Label column sm={3}>Expense category</Form.Label>
+                <Col sm={9}>
+                  <Form.Control type='text' name='category'
+                    value={transactionForm.category}
+                    onChange={updateForm}
+                  />
+                </Col>
+              </Form.Group>
+              <Form.Group as={Row} className={homeScss.formRow}>
+                <Form.Label column sm={3}>Notes</Form.Label>
+                <Col sm={9}>
+                  <Form.Control type='text' name='notes'
+                    value={transactionForm.notes}
+                    onChange={updateForm}
+                  />
+                </Col>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <div className='action-bar col-12'>
+              <Button variant='secondary' onClick={toggleAddTransaction}>Cancel</Button>
+              <Button variant='primary' className='right-align' onClick={saveTransaction}>Save</Button>
             </div>
-            <div className='field-row'>
-              <label htmlFor='dateTime' className='label'>Date</label>
-              <input className='field'
-                type='datetime-local'
-                name='dateTime'
-                value={transactionForm.dateTime}
-                onChange={updateForm}
-              />
-            </div>
-            <div className='field-row'>
-              <label htmlFor='amount' className='label'>Amount</label>
-              <input className='field' type='number' name='amount' value={transactionForm.amount} onChange={updateForm}/>
-            </div>
-            <div className='action-bar'>
-              <ul>
-                <li>
-                  <button>Cancel</button>
-                </li>
-                <li className='right-align'>
-                  <button className='' onClick={saveTransaction}>Save</button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        }
+          </Modal.Footer>
+        </Modal>
       </div>
     </div>
   )
